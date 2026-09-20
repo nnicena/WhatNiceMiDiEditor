@@ -1,0 +1,1391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="th"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;title&gt;Nice MIDI Editor&lt;/title&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">* {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box-sizing: border-box;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">body {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-family: Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: #f2f2f2;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: #222;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.container {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>max-width: 1100px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin: auto;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 25px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">header {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-bottom: 20px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">h1 {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin: 0;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">button {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 10px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 14px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.primary {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: #111;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: white;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.secondary {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 1px solid #ccc;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.layout {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>grid-template-columns: 200px 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 15px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.card {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 1px solid #ddd;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.bank-button {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-top: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: left;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.bank-button.active {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: #111;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: white;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.switches {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>grid-template-columns: repeat(3, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-top: 15px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.switch {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 2px solid #ddd;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: left;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.switch.active {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-color: #111;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.switch-name {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-weight: bold;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.form {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>grid-template-columns: 1fr 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-top: 15px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">label {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">input,</p>
+<p class="p1">select {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-top: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 1px solid #ccc;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 7px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.actions {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-top: 18px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.lcd {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: #dce8d2;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 3px solid #555;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-top: 10px;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-family: monospace;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 22px;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>white-space: pre;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 1px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.status {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-top: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: #777;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">@media(max-width:700px) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.layout {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.switches {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: repeat(2, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.form {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="container"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h1&gt;Nice MIDI Editor&lt;/h1&gt;</p>
+<p class="p1">&lt;div&gt;6 Switch MIDI Foot Controller&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button class="primary" onclick="saveSettings()"&gt;</p>
+<p class="p1">Save</p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="layout"&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- BANKS --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="card"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;h3&gt;BANKS&lt;/h3&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div id="banks"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button</p>
+<p class="p1">class="secondary"</p>
+<p class="p1">style="width:100%;margin-top:10px"</p>
+<p class="p1">onclick="addBank()"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">+ Add Bank</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- MAIN --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- BANK --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="card"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;h2 id="bankTitle"&gt;</p>
+<p class="p1">BANK 01</p>
+<p class="p1">&lt;/h2&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div</p>
+<p class="p1">class="switches"</p>
+<p class="p1">id="switches"&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- EDITOR --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div</p>
+<p class="p1">class="card"</p>
+<p class="p1">style="margin-top:15px"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;h3 id="selectedSwitch"&gt;</p>
+<p class="p1">FS1</p>
+<p class="p1">&lt;/h3&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="form"&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;label&gt;</p>
+<p class="p1">Short Name</p>
+<p class="p1">&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;input</p>
+<p class="p1">id="shortName"</p>
+<p class="p1">maxlength="8"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;label&gt;</p>
+<p class="p1">Long Name</p>
+<p class="p1">&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;input</p>
+<p class="p1">id="longName"</p>
+<p class="p1">maxlength="24"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;label&gt;</p>
+<p class="p1">LCD Column (0-23)</p>
+<p class="p1">&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;input</p>
+<p class="p1">id="lcdColumn"</p>
+<p class="p1">type="number"</p>
+<p class="p1">min="0"</p>
+<p class="p1">max="23"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;label&gt;</p>
+<p class="p1">LCD Row</p>
+<p class="p1">&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;select id="lcdRow"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;option value="0"&gt;</p>
+<p class="p1">Row 1</p>
+<p class="p1">&lt;/option&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;option value="1"&gt;</p>
+<p class="p1">Row 2</p>
+<p class="p1">&lt;/option&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/select&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;label&gt;</p>
+<p class="p1">Action</p>
+<p class="p1">&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;select id="action"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;option&gt;Press&lt;/option&gt;</p>
+<p class="p1">&lt;option&gt;Release&lt;/option&gt;</p>
+<p class="p1">&lt;option&gt;Long Press&lt;/option&gt;</p>
+<p class="p1">&lt;option&gt;Double Tap&lt;/option&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/select&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;label&gt;</p>
+<p class="p1">MIDI Type</p>
+<p class="p1">&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;select id="midiType"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;option&gt;CC&lt;/option&gt;</p>
+<p class="p1">&lt;option&gt;PC&lt;/option&gt;</p>
+<p class="p1">&lt;option&gt;Note&lt;/option&gt;</p>
+<p class="p1">&lt;option&gt;Clock&lt;/option&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/select&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;label&gt;</p>
+<p class="p1">MIDI Channel</p>
+<p class="p1">&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;input</p>
+<p class="p1">id="channel"</p>
+<p class="p1">type="number"</p>
+<p class="p1">min="1"</p>
+<p class="p1">max="16"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;label&gt;</p>
+<p class="p1">Number / Note</p>
+<p class="p1">&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;input</p>
+<p class="p1">id="number"</p>
+<p class="p1">type="number"</p>
+<p class="p1">min="0"</p>
+<p class="p1">max="127"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;label&gt;</p>
+<p class="p1">Value</p>
+<p class="p1">&lt;/label&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;input</p>
+<p class="p1">id="value"</p>
+<p class="p1">type="number"</p>
+<p class="p1">min="0"</p>
+<p class="p1">max="127"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="actions"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button</p>
+<p class="p1">class="primary"</p>
+<p class="p1">onclick="applySettings()"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">Apply</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button</p>
+<p class="p1">class="secondary"</p>
+<p class="p1">onclick="copySwitch()"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">Copy</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button</p>
+<p class="p1">class="secondary"</p>
+<p class="p1">onclick="pasteSwitch()"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">Paste</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button</p>
+<p class="p1">class="secondary"</p>
+<p class="p1">onclick="exportJSON()"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">Export JSON</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button</p>
+<p class="p1">class="secondary"</p>
+<p class="p1">onclick="document.getElementById('importFile').click()"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">Import JSON</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;input</p>
+<p class="p1">type="file"</p>
+<p class="p1">id="importFile"</p>
+<p class="p1">accept=".json"</p>
+<p class="p1">style="display:none"</p>
+<p class="p1">onchange="importJSON(event)"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- LCD --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div</p>
+<p class="p1">class="card"</p>
+<p class="p1">style="margin-top:15px"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;h3&gt;LCD 24 × 2&lt;/h3&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div</p>
+<p class="p1">class="lcd"</p>
+<p class="p1">id="lcd"&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- ESP32 --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div</p>
+<p class="p1">class="card"</p>
+<p class="p1">style="margin-top:15px"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;h3&gt;ESP32&lt;/h3&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="actions"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button</p>
+<p class="p1">class="primary"</p>
+<p class="p1">onclick="connectESP32()"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">Connect ESP32</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button</p>
+<p class="p1">class="secondary"</p>
+<p class="p1">onclick="sendToESP32()"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">Send Settings</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button</p>
+<p class="p1">class="secondary"</p>
+<p class="p1">onclick="readFromESP32()"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">Read Settings</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div</p>
+<p class="p1">class="status"</p>
+<p class="p1">id="status"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">ESP32: Not Connected</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>DATA</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">let banks = [];</p>
+<p class="p2"><br></p>
+<p class="p1">let currentBank = 0;</p>
+<p class="p2"><br></p>
+<p class="p1">let currentSwitch = 0;</p>
+<p class="p2"><br></p>
+<p class="p1">let clipboard = null;</p>
+<p class="p2"><br></p>
+<p class="p1">let serialPort = null;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>CREATE SWITCH</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function createSwitch(index) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const names = [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"DIST",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"DELAY",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"REVERB",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"SOLO",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"CHORUS",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"TAP"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>return {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>shortName: names[index],</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>longName: names[index],</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>column: [0,8,16,0,8,16][index],</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>row: index &lt; 3 ? 0 : 1,</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>action: "Press",</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>midiType: "CC",</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>channel: 1,</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>number: 20 + index,</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>value: 127</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>CREATE BANK</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function createBank(name) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>return {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>name: name,</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>switches: [</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>createSwitch(0),</p>
+<p class="p1"><span class="Apple-converted-space">            </span>createSwitch(1),</p>
+<p class="p1"><span class="Apple-converted-space">            </span>createSwitch(2),</p>
+<p class="p1"><span class="Apple-converted-space">            </span>createSwitch(3),</p>
+<p class="p1"><span class="Apple-converted-space">            </span>createSwitch(4),</p>
+<p class="p1"><span class="Apple-converted-space">            </span>createSwitch(5)</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>]</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>INITIAL DATA</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">banks.push(</p>
+<p class="p1"><span class="Apple-converted-space">    </span>createBank("BANK 01")</p>
+<p class="p1">);</p>
+<p class="p2"><br></p>
+<p class="p1">banks.push(</p>
+<p class="p1"><span class="Apple-converted-space">    </span>createBank("BANK 02")</p>
+<p class="p1">);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>RENDER</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function render() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderBanks();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderSwitches();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>loadEditor();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderLCD();</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>BANKS</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function renderBanks() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const container =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById("banks");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>container.innerHTML = "";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>banks.forEach((bank,index)=&gt;{</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const button =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.createElement("button");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button.className =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"bank-button " +</p>
+<p class="p1"><span class="Apple-converted-space">            </span>(index === currentBank</p>
+<p class="p1"><span class="Apple-converted-space">                </span>? "active"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>: "");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button.textContent =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>bank.name;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button.onclick = ()=&gt;{</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentBank = index;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentSwitch = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>container.appendChild(button);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>SWITCHES</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function renderSwitches() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const container =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById("switches");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>container.innerHTML = "";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const switches =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>banks[currentBank].switches;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>switches.forEach((sw,index)=&gt;{</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const button =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.createElement("button");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button.className =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"switch " +</p>
+<p class="p1"><span class="Apple-converted-space">            </span>(index === currentSwitch</p>
+<p class="p1"><span class="Apple-converted-space">                </span>? "active"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>: "");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button.innerHTML = `</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;FS${index+1}&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="switch-name"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${sw.shortName}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;small&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${sw.midiType}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${sw.number}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/small&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button.onclick = ()=&gt;{</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentSwitch = index;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>container.appendChild(button);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>LOAD EDITOR</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function loadEditor() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const sw =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>banks[currentBank]</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.switches[currentSwitch];</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"selectedSwitch"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).textContent =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"FS" + (currentSwitch + 1);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"shortName"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sw.shortName;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"longName"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sw.longName;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"lcdColumn"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sw.column;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"lcdRow"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sw.row;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"action"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sw.action;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"midiType"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sw.midiType;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"channel"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sw.channel;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"number"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sw.number;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"value"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sw.value;</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>APPLY</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function applySettings() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const sw =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>banks[currentBank]</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.switches[currentSwitch];</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.shortName =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"shortName"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>).value;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.longName =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"longName"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>).value;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.column =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Number(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>"lcdColumn"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>).value</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.row =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Number(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>"lcdRow"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>).value</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.action =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"action"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>).value;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.midiType =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"midiType"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>).value;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.channel =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Number(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>"channel"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>).value</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.number =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Number(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>"number"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>).value</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.value =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Number(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>"value"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>).value</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>render();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Settings applied"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>LCD</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function renderLCD() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>let row1 =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"<span class="Apple-converted-space">                        </span>";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>let row2 =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"<span class="Apple-converted-space">                        </span>";</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>banks[currentBank]</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.switches</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.forEach(sw=&gt;{</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let text =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sw.shortName.substring(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>0,8</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let column =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Math.max(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Math.min(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>23 - text.length,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>sw.column</p>
+<p class="p1"><span class="Apple-converted-space">                </span>)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(sw.row === 0) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>row1 =</p>
+<p class="p1"><span class="Apple-converted-space">                </span>row1.substring(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>0,column</p>
+<p class="p1"><span class="Apple-converted-space">                </span>)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>+</p>
+<p class="p1"><span class="Apple-converted-space">                </span>text</p>
+<p class="p1"><span class="Apple-converted-space">                </span>+</p>
+<p class="p1"><span class="Apple-converted-space">                </span>row1.substring(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>column + text.length</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>row2 =</p>
+<p class="p1"><span class="Apple-converted-space">                </span>row2.substring(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>0,column</p>
+<p class="p1"><span class="Apple-converted-space">                </span>)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>+</p>
+<p class="p1"><span class="Apple-converted-space">                </span>text</p>
+<p class="p1"><span class="Apple-converted-space">                </span>+</p>
+<p class="p1"><span class="Apple-converted-space">                </span>row2.substring(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>column + text.length</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"lcd"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).textContent =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>row1 + "\n" + row2;</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>ADD BANK</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function addBank() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const number =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>banks.length + 1;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>banks.push(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>createBank(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"BANK " +</p>
+<p class="p1"><span class="Apple-converted-space">            </span>String(number)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.padStart(2,"0")</p>
+<p class="p1"><span class="Apple-converted-space">        </span>)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>currentBank =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>banks.length - 1;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>currentSwitch = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>render();</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>COPY</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function copySwitch() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>clipboard =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>JSON.parse(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>JSON.stringify(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banks[currentBank]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>.switches[currentSwitch]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"FS copied"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>PASTE</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function pasteSwitch() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(!clipboard)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>banks[currentBank]</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.switches[currentSwitch] =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>JSON.parse(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>JSON.stringify(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>clipboard</p>
+<p class="p1"><span class="Apple-converted-space">            </span>)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>render();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"FS pasted"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>SAVE</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function saveSettings() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"niceMidiSettings",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>JSON.stringify(banks)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Saved to browser"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>EXPORT</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function exportJSON() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const data =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>JSON.stringify(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>banks,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>null,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>2</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const blob =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>new Blob(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>[data],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type:</p>
+<p class="p1"><span class="Apple-converted-space">                </span>"application/json"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const url =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>URL.createObjectURL(blob);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const a =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.createElement("a");</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>a.href = url;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>a.download =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"nice-midi-settings.json";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>a.click();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>URL.revokeObjectURL(url);</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>IMPORT</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function importJSON(event) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const file =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>event.target.files[0];</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const reader =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>new FileReader();</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>reader.onload =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function(){</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>banks =</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>JSON.parse(</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>reader.result</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentBank = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentSwitch = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>render();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>"Import successful"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>catch {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>"Invalid JSON"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>reader.readAsText(file);</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>ESP32 CONNECT</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">async function connectESP32() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(!("serial" in navigator)) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"Web Serial ไม่รองรับใน browser นี้"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>serialPort =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>await navigator.serial</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.requestPort();</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>await serialPort.open({</p>
+<p class="p1"><span class="Apple-converted-space">            </span>baudRate: 115200</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"ESP32 Connected"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>catch(error) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>console.error(error);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"ESP32 connection failed"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>SEND TO ESP32</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">async function sendToESP32() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(!serialPort) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"Connect ESP32 ก่อน"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const data =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>JSON.stringify(banks);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const writer =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>serialPort.writable</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.getWriter();</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const encoder =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>new TextEncoder();</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>await writer.write(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>encoder.encode(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>data + "\n"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>writer.releaseLock();</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"Settings sent to ESP32"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>READ ESP32</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">async function readFromESP32() {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(!serialPort) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"Connect ESP32 ก่อน"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const reader =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>serialPort.readable</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.getReader();</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>value,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>done</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>await reader.read();</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(done)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const text =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>new TextDecoder()</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.decode(value);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>console.log(</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"ESP32:",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>try {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>banks =</p>
+<p class="p1"><span class="Apple-converted-space">                </span>JSON.parse(text);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentBank = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentSwitch = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>"Settings received"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>catch {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>setStatus(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>"Received data is not JSON"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>finally {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>reader.releaseLock();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>STATUS</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">function setStatus(text) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"status"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>).textContent =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text;</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>LOAD SAVED DATA</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">const saved =</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.getItem(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"niceMidiSettings"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">if(saved) {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>banks =</p>
+<p class="p1"><span class="Apple-converted-space">            </span>JSON.parse(saved);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>catch {}</p>
+<p class="p2"><br></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/* =========================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>START</p>
+<p class="p1">========================= */</p>
+<p class="p2"><br></p>
+<p class="p1">render();</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
