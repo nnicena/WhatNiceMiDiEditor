@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Courier; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Courier; -webkit-text-stroke: #000000; min-height: 17.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="th"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;DIY Foot Switch MIDI Editor&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #1a1a1a;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #ffffff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>max-width: 600px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0 auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #2d2d2d;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 30px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 15px rgba(0,0,0,0.5);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>h1 { text-align: center; color: #00adb5; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.form-group {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>label {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #eeeeee;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>select, input {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 5px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: 1px solid #393e46;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #393e46;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #00adb5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 5px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: background 0.2s;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button:hover { background-color: #007a80; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#status {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 5px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #393e46;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.log-box {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #111;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 5px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: monospace;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>max-height: 150px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>overflow-y: auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #39ff14;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;div class="container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h1&gt;MIDI Switch Editor&lt;/h1&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- ส่วนเชื่อมต่ออุปกรณ์ --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label for="midi-outputs"&gt;เลือกอุปกรณ์ฟุตสวิตช์ (MIDI Output):&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;select id="midi-outputs"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;option value=""&gt;-- กรุณาเลือกอุปกรณ์ --&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;hr style="border: 0; border-top: 1px solid #393e46; margin: 25px 0;"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- ส่วนตั้งค่าปุ่ม --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label for="switch-select"&gt;เลือกปุ่มสวิตช์ที่ต้องการตั้งค่า:&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;select id="switch-select"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;option value="1"&gt;Switch A (ปุ่มที่ 1)&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;option value="2"&gt;Switch B (ปุ่มที่ 2)&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;option value="3"&gt;Switch C (ปุ่มที่ 3)&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label for="msg-type"&gt;ประเภทข้อความ MIDI (Message Type):&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;select id="msg-type"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;option value="176"&gt;Control Change (CC)&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;option value="192"&gt;Program Change (PC)&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label for="midi-number"&gt;หมายเลข (Number / CC#):&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="midi-number" min="0" max="127" value="10"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label for="midi-value"&gt;ค่าของข้อมูล (Value):&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="midi-value" min="0" max="127" value="127"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button id="btn-save"&gt;ส่งการตั้งค่าไปยังฟุตสวิตช์ (Save to Device)&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="status"&gt;กำลังตรวจสอบระบบ Web MIDI...&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="log-box" id="log-box"&gt;&gt;&gt; Log Console Ready...&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let midiAccess = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let selectedOutput = null;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const statusDiv = document.getElementById('status');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const outputSelect = document.getElementById('midi-outputs');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const logBox = document.getElementById('log-box');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function log(message) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>logBox.innerHTML += `&lt;br&gt;&gt;&gt; ${message}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>logBox.scrollTop = logBox.scrollHeight;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 1. ขอสิทธิ์เข้าถึง Web MIDI API จาก Browser</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (navigator.requestMIDIAccess) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>navigator.requestMIDIAccess({ sysex: true }) // เปิดใช้งาน sysex สำหรับโอนย้ายข้อมูล</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.then(onMIDISuccess, onMIDIFailure);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>statusDiv.style.backgroundColor = "#ff4d4d";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>statusDiv.innerText = "เบราว์เซอร์นี้ไม่รองรับ Web MIDI API (แนะนำให้ใช้ Chrome หรือ Edge)";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function onMIDISuccess(midi) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>midiAccess = midi;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>statusDiv.style.backgroundColor = "#28a745";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>statusDiv.innerText = "ระบบ MIDI พร้อมใช้งาน! กรุณาเลือกอุปกรณ์";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>log("เข้าถึง Web MIDI API สำเร็จ (เปิดโหมด SysEx แล้ว)");</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>updateMIDIDevices();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// ตรวจจับกรณีมีการดึงสายหรือเสียบสายอุปกรณ์ใหม่</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>midiAccess.onstatechange = updateMIDIDevices;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function onMIDIFailure(error) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>statusDiv.style.backgroundColor = "#ff4d4d";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>statusDiv.innerText = "ปฏิเสธการเข้าถึงระบบ MIDI: " + error;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 2. อัปเดตรายชื่อพอร์ตอุปกรณ์ที่เชื่อมต่ออยู่เข้ามาใน Dropdown</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function updateMIDIDevices() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>outputSelect.innerHTML = '&lt;option value=""&gt;-- กรุณาเลือกอุปกรณ์ --&lt;/option&gt;';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const outputs = midiAccess.outputs;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if(outputs.size === 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>log("ไม่พบอุปกรณ์ MIDI เชื่อมต่ออยู่");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>outputs.forEach((output) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const option = document.createElement('option');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>option.value = output.id;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>option.innerText = output.name;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>outputSelect.appendChild(option);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// ดักจับการเลือกอุปกรณ์</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>outputSelect.addEventListener('change', (e) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const id = e.target.value;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if(id) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>selectedOutput = midiAccess.outputs.get(id);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>log(`เลือกอุปกรณ์ส่งออก: ${selectedOutput.name}`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>selectedOutput = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 3. ส่งข้อมูล SysEx เมื่อกดปุ่ม Save</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById('btn-save').addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (!selectedOutput) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>alert('กรุณาเลือกอุปกรณ์ MIDI ก่อนครับ!');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// ดึงค่าต่างๆ จากหน้าเว็บ UI</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const switchNum = parseInt(document.getElementById('switch-select').value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const msgType = parseInt(document.getElementById('msg-type').value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const midiNum = parseInt(document.getElementById('midi-number').value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const midiVal = parseInt(document.getElementById('midi-value').value);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/*<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>สร้างโครงสร้างชุดข้อความจำลองขึ้นมา (Byte Array SysEx)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>0xF0 = จุดเริ่มต้นข้อความ SysEx</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>0x7D = รหัสผู้ผลิต (Manufacturer ID สำหรับงาน DIY / วิจัย)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>[ข้อมูลการตั้งค่าที่เราส่งไป]</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>0xF7 = จุดสิ้นสุดข้อความ SysEx</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>*/</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const sysexData = [</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>0xF0, <span class="Apple-converted-space">      </span>// Start SysEx</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>0x7D, <span class="Apple-converted-space">      </span>// Educational/DIY ID</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>switchNum,<span class="Apple-converted-space">  </span>// ปุ่มที่เท่าไหร่ (1, 2, 3)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>msgType,<span class="Apple-converted-space">    </span>// ประเภทข้อความ (176=CC, 192=PC)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>midiNum,<span class="Apple-converted-space">    </span>// เลขข้อความ (0-127)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>midiVal,<span class="Apple-converted-space">    </span>// ค่าความแรง (0-127)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>0xF7<span class="Apple-converted-space">        </span>// End SysEx</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>try {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// สั่งให้เว็บแอปพลิเคชันยิงข้อมูลดิบออกไปทางสาย USB ทันที</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>selectedOutput.send(sysexData);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>log(`ส่งคำสั่งเซฟปุ่ม ${switchNum} สำเร็จ -&gt; ชุดข้อมูลบิต: [${sysexData.map(x =&gt; '0x' + x.toString(16).toUpperCase()).join(', ')}]`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>alert('ส่งข้อมูลโครงสร้างปุ่มไปยังฟุตสวิตช์เรียบร้อยแล้ว!');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>} catch (error) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>log(`เกิดข้อผิดพลาดในการส่งข้อมูล: ${error}`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>alert('ไม่สามารถส่งข้อมูลได้ กรุณาตรวจสอบการเชื่อมต่อ');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
