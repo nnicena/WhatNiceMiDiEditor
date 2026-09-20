@@ -80,9 +80,9 @@
     
     <!-- ส่วนเชื่อมต่ออุปกรณ์ -->
     <div class="form-group">
-        <label for="midi-outputs">เลือกอุปกรณ์ฟุตสวิตช์ (MIDI Output):</label>
+        <label for="midi-outputs">Select a footswitch device (MIDI Output):</label>
         <select id="midi-outputs">
-            <option value="">-- กรุณาเลือกอุปกรณ์ --</option>
+            <option value="">-- Please select a device --</option>
         </select>
     </div>
 
@@ -90,16 +90,16 @@
 
     <!-- ส่วนตั้งค่าปุ่ม -->
     <div class="form-group">
-        <label for="switch-select">เลือกปุ่มสวิตช์ที่ต้องการตั้งค่า:</label>
+        <label for="switch-select">Select the button to configure:</label>
         <select id="switch-select">
-            <option value="1">Switch A (ปุ่มที่ 1)</option>
-            <option value="2">Switch B (ปุ่มที่ 2)</option>
-            <option value="3">Switch C (ปุ่มที่ 3)</option>
+            <option value="1">Switch A </option>
+            <option value="2">Switch B </option>
+            <option value="3">Switch C </option>
         </select>
     </div>
 
     <div class="form-group">
-        <label for="msg-type">ประเภทข้อความ MIDI (Message Type):</label>
+        <label for="msg-type">MIDI (Message Type):</label>
         <select id="msg-type">
             <option value="176">Control Change (CC)</option>
             <option value="192">Program Change (PC)</option>
@@ -107,16 +107,16 @@
     </div>
 
     <div class="form-group">
-        <label for="midi-number">หมายเลข (Number / CC#):</label>
+        <label for="midi-number">(Number / CC#):</label>
         <input type="number" id="midi-number" min="0" max="127" value="10">
     </div>
 
     <div class="form-group">
-        <label for="midi-value">ค่าของข้อมูล (Value):</label>
+        <label for="midi-value">(Value):</label>
         <input type="number" id="midi-value" min="0" max="127" value="127">
     </div>
 
-    <button id="btn-save">ส่งการตั้งค่าไปยังฟุตสวิตช์ (Save to Device)</button>
+    <button id="btn-save">Save to Device</button>
 
     <div id="status">กำลังตรวจสอบระบบ Web MIDI...</div>
     
