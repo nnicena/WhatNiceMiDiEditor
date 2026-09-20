@@ -1,235 +1,1374 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIY Foot Switch MIDI Editor</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #2d2d2d;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        h1 { text-align: center; color: #00adb5; }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #eeeeee;
-        }
-        select, input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #393e46;
-            background-color: #393e46;
-            color: white;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #00adb5;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-        button:hover { background-color: #007a80; }
-        #status {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            background-color: #393e46;
-            font-size: 14px;
-        }
-        .log-box {
-            margin-top: 20px;
-            background-color: #111;
-            padding: 15px;
-            border-radius: 5px;
-            font-family: monospace;
-            max-height: 150px;
-            overflow-y: auto;
-            font-size: 12px;
-            color: #39ff14;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nice MIDI Editor</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    color: #222;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.primary {
+    background: #111;
+    color: white;
+}
+
+.secondary {
+    background: white;
+    border: 1px solid #ccc;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid #ddd;
+}
+
+.bank-button {
+    width: 100%;
+    margin-top: 8px;
+    text-align: left;
+}
+
+.bank-button.active {
+    background: #111;
+    color: white;
+}
+
+.switches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.switch {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 18px;
+    text-align: left;
+}
+
+.switch.active {
+    border-color: #111;
+}
+
+.switch-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+label {
+    font-size: 13px;
+}
+
+input,
+select {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.lcd {
+    background: #dce8d2;
+    border: 3px solid #555;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 10px;
+
+    font-family: monospace;
+    font-size: 22px;
+
+    white-space: pre;
+    letter-spacing: 1px;
+}
+
+.status {
+    margin-top: 10px;
+    color: #777;
+}
+
+@media(max-width:700px) {
+
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .switches {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <h1>What Nice MIDI Editor</h1>
-    
-    <!-- ส่วนเชื่อมต่ออุปกรณ์ -->
-    <div class="form-group">
-        <label for="midi-outputs">Select a footswitch device (MIDI Output):</label>
-        <select id="midi-outputs">
-            <option value="">-- Please select a device --</option>
-        </select>
-    </div>
 
-    <hr style="border: 0; border-top: 1px solid #393e46; margin: 25px 0;">
+<header>
 
-    <!-- ส่วนตั้งค่าปุ่ม -->
-    <div class="form-group">
-        <label for="switch-select">Select the button to configure:</label>
-        <select id="switch-select">
-            <option value="1">Switch A </option>
-            <option value="2">Switch B </option>
-            <option value="3">Switch C </option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="msg-type">MIDI (Message Type):</label>
-        <select id="msg-type">
-            <option value="176">Control Change (CC)</option>
-            <option value="192">Program Change (PC)</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="midi-number">(Number / CC#):</label>
-        <input type="number" id="midi-number" min="0" max="127" value="10">
-    </div>
-
-    <div class="form-group">
-        <label for="midi-value">(Value):</label>
-        <input type="number" id="midi-value" min="0" max="127" value="127">
-    </div>
-
-    <button id="btn-save">Save to Device</button>
-
-    <div id="status">กำลังตรวจสอบระบบ Web MIDI...</div>
-    
-    <div class="log-box" id="log-box">>> Log Console Ready...</div>
+<div>
+<h1>Nice MIDI Editor</h1>
+<div>6 Switch MIDI Foot Controller</div>
 </div>
 
+<button class="primary" onclick="saveSettings()">
+Save
+</button>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- BANKS -->
+
+<div class="card">
+
+<h3>BANKS</h3>
+
+<div id="banks"></div>
+
+<button
+class="secondary"
+style="width:100%;margin-top:10px"
+onclick="addBank()">
+
++ Add Bank
+
+</button>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div>
+
+
+<!-- BANK -->
+
+<div class="card">
+
+<h2 id="bankTitle">
+BANK 01
+</h2>
+
+<div
+class="switches"
+id="switches">
+</div>
+
+</div>
+
+
+<!-- EDITOR -->
+
+<div
+class="card"
+style="margin-top:15px">
+
+<h3 id="selectedSwitch">
+FS1
+</h3>
+
+
+<div class="form">
+
+
+<div>
+
+<label>
+Short Name
+</label>
+
+<input
+id="shortName"
+maxlength="8">
+
+</div>
+
+
+<div>
+
+<label>
+Long Name
+</label>
+
+<input
+id="longName"
+maxlength="24">
+
+</div>
+
+
+<div>
+
+<label>
+LCD Column (0-23)
+</label>
+
+<input
+id="lcdColumn"
+type="number"
+min="0"
+max="23">
+
+</div>
+
+
+<div>
+
+<label>
+LCD Row
+</label>
+
+<select id="lcdRow">
+
+<option value="0">
+Row 1
+</option>
+
+<option value="1">
+Row 2
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>
+Action
+</label>
+
+<select id="action">
+
+<option>Press</option>
+<option>Release</option>
+<option>Long Press</option>
+<option>Double Tap</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>
+MIDI Type
+</label>
+
+<select id="midiType">
+
+<option>CC</option>
+<option>PC</option>
+<option>Note</option>
+<option>Clock</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>
+MIDI Channel
+</label>
+
+<input
+id="channel"
+type="number"
+min="1"
+max="16">
+
+</div>
+
+
+<div>
+
+<label>
+Number / Note
+</label>
+
+<input
+id="number"
+type="number"
+min="0"
+max="127">
+
+</div>
+
+
+<div>
+
+<label>
+Value
+</label>
+
+<input
+id="value"
+type="number"
+min="0"
+max="127">
+
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="primary"
+onclick="applySettings()">
+
+Apply
+
+</button>
+
+
+<button
+class="secondary"
+onclick="copySwitch()">
+
+Copy
+
+</button>
+
+
+<button
+class="secondary"
+onclick="pasteSwitch()">
+
+Paste
+
+</button>
+
+
+<button
+class="secondary"
+onclick="exportJSON()">
+
+Export JSON
+
+</button>
+
+
+<button
+class="secondary"
+onclick="document.getElementById('importFile').click()">
+
+Import JSON
+
+</button>
+
+<input
+type="file"
+id="importFile"
+accept=".json"
+style="display:none"
+onchange="importJSON(event)">
+
+</div>
+
+</div>
+
+
+<!-- LCD -->
+
+<div
+class="card"
+style="margin-top:15px">
+
+<h3>LCD 24 × 2</h3>
+
+<div
+class="lcd"
+id="lcd">
+</div>
+
+</div>
+
+
+<!-- ESP32 -->
+
+<div
+class="card"
+style="margin-top:15px">
+
+<h3>ESP32</h3>
+
+<div class="actions">
+
+<button
+class="primary"
+onclick="connectESP32()">
+
+Connect ESP32
+
+</button>
+
+
+<button
+class="secondary"
+onclick="sendToESP32()">
+
+Send Settings
+
+</button>
+
+
+<button
+class="secondary"
+onclick="readFromESP32()">
+
+Read Settings
+
+</button>
+
+</div>
+
+<div
+class="status"
+id="status">
+
+ESP32: Not Connected
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
-    let midiAccess = null;
-    let selectedOutput = null;
 
-    const statusDiv = document.getElementById('status');
-    const outputSelect = document.getElementById('midi-outputs');
-    const logBox = document.getElementById('log-box');
 
-    function log(message) {
-        logBox.innerHTML += `<br>>> ${message}`;
-        logBox.scrollTop = logBox.scrollHeight;
-    }
+/* =========================
+   DATA
+========================= */
 
-    // 1. ขอสิทธิ์เข้าถึง Web MIDI API จาก Browser
-    if (navigator.requestMIDIAccess) {
-        navigator.requestMIDIAccess({ sysex: true }) // เปิดใช้งาน sysex สำหรับโอนย้ายข้อมูล
-            .then(onMIDISuccess, onMIDIFailure);
-    } else {
-        statusDiv.style.backgroundColor = "#ff4d4d";
-        statusDiv.innerText = "เบราว์เซอร์นี้ไม่รองรับ Web MIDI API (แนะนำให้ใช้ Chrome หรือ Edge)";
-    }
+let banks = [];
 
-    function onMIDISuccess(midi) {
-        midiAccess = midi;
-        statusDiv.style.backgroundColor = "#28a745";
-        statusDiv.innerText = "ระบบ MIDI พร้อมใช้งาน! กรุณาเลือกอุปกรณ์";
-        log("เข้าถึง Web MIDI API สำเร็จ (เปิดโหมด SysEx แล้ว)");
-        
-        updateMIDIDevices();
-        // ตรวจจับกรณีมีการดึงสายหรือเสียบสายอุปกรณ์ใหม่
-        midiAccess.onstatechange = updateMIDIDevices;
-    }
+let currentBank = 0;
 
-    function onMIDIFailure(error) {
-        statusDiv.style.backgroundColor = "#ff4d4d";
-        statusDiv.innerText = "ปฏิเสธการเข้าถึงระบบ MIDI: " + error;
-    }
+let currentSwitch = 0;
 
-    // 2. อัปเดตรายชื่อพอร์ตอุปกรณ์ที่เชื่อมต่ออยู่เข้ามาใน Dropdown
-    function updateMIDIDevices() {
-        outputSelect.innerHTML = '<option value="">-- กรุณาเลือกอุปกรณ์ --</option>';
-        const outputs = midiAccess.outputs;
+let clipboard = null;
 
-        if(outputs.size === 0) {
-            log("ไม่พบอุปกรณ์ MIDI เชื่อมต่ออยู่");
-            return;
-        }
+let serialPort = null;
 
-        outputs.forEach((output) => {
-            const option = document.createElement('option');
-            option.value = output.id;
-            option.innerText = output.name;
-            outputSelect.appendChild(option);
-        });
-    }
 
-    // ดักจับการเลือกอุปกรณ์
-    outputSelect.addEventListener('change', (e) => {
-        const id = e.target.value;
-        if(id) {
-            selectedOutput = midiAccess.outputs.get(id);
-            log(`เลือกอุปกรณ์ส่งออก: ${selectedOutput.name}`);
-        } else {
-            selectedOutput = null;
-        }
+/* =========================
+   CREATE SWITCH
+========================= */
+
+function createSwitch(index) {
+
+    const names = [
+        "DIST",
+        "DELAY",
+        "REVERB",
+        "SOLO",
+        "CHORUS",
+        "TAP"
+    ];
+
+    return {
+
+        shortName: names[index],
+
+        longName: names[index],
+
+        column: [0,8,16,0,8,16][index],
+
+        row: index < 3 ? 0 : 1,
+
+        action: "Press",
+
+        midiType: "CC",
+
+        channel: 1,
+
+        number: 20 + index,
+
+        value: 127
+
+    };
+
+}
+
+
+/* =========================
+   CREATE BANK
+========================= */
+
+function createBank(name) {
+
+    return {
+
+        name: name,
+
+        switches: [
+
+            createSwitch(0),
+            createSwitch(1),
+            createSwitch(2),
+            createSwitch(3),
+            createSwitch(4),
+            createSwitch(5)
+
+        ]
+
+    };
+
+}
+
+
+/* =========================
+   INITIAL DATA
+========================= */
+
+banks.push(
+    createBank("BANK 01")
+);
+
+banks.push(
+    createBank("BANK 02")
+);
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render() {
+
+    renderBanks();
+
+    renderSwitches();
+
+    loadEditor();
+
+    renderLCD();
+
+}
+
+
+/* =========================
+   BANKS
+========================= */
+
+function renderBanks() {
+
+    const container =
+        document.getElementById("banks");
+
+    container.innerHTML = "";
+
+    banks.forEach((bank,index)=>{
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "bank-button " +
+            (index === currentBank
+                ? "active"
+                : "");
+
+        button.textContent =
+            bank.name;
+
+        button.onclick = ()=>{
+
+            currentBank = index;
+
+            currentSwitch = 0;
+
+            render();
+
+        };
+
+        container.appendChild(button);
+
     });
 
-    // 3. ส่งข้อมูล SysEx เมื่อกดปุ่ม Save
-    document.getElementById('btn-save').addEventListener('click', () => {
-        if (!selectedOutput) {
-            alert('กรุณาเลือกอุปกรณ์ MIDI ก่อนครับ!');
-            return;
+}
+
+
+/* =========================
+   SWITCHES
+========================= */
+
+function renderSwitches() {
+
+    const container =
+        document.getElementById("switches");
+
+    container.innerHTML = "";
+
+    const switches =
+        banks[currentBank].switches;
+
+    switches.forEach((sw,index)=>{
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "switch " +
+            (index === currentSwitch
+                ? "active"
+                : "");
+
+        button.innerHTML = `
+
+            <div>FS${index+1}</div>
+
+            <div class="switch-name">
+                ${sw.shortName}
+            </div>
+
+            <small>
+                ${sw.midiType}
+                ${sw.number}
+            </small>
+
+        `;
+
+        button.onclick = ()=>{
+
+            currentSwitch = index;
+
+            render();
+
+        };
+
+        container.appendChild(button);
+
+    });
+
+}
+
+
+/* =========================
+   LOAD EDITOR
+========================= */
+
+function loadEditor() {
+
+    const sw =
+        banks[currentBank]
+        .switches[currentSwitch];
+
+
+    document.getElementById(
+        "selectedSwitch"
+    ).textContent =
+        "FS" + (currentSwitch + 1);
+
+
+    document.getElementById(
+        "shortName"
+    ).value =
+        sw.shortName;
+
+
+    document.getElementById(
+        "longName"
+    ).value =
+        sw.longName;
+
+
+    document.getElementById(
+        "lcdColumn"
+    ).value =
+        sw.column;
+
+
+    document.getElementById(
+        "lcdRow"
+    ).value =
+        sw.row;
+
+
+    document.getElementById(
+        "action"
+    ).value =
+        sw.action;
+
+
+    document.getElementById(
+        "midiType"
+    ).value =
+        sw.midiType;
+
+
+    document.getElementById(
+        "channel"
+    ).value =
+        sw.channel;
+
+
+    document.getElementById(
+        "number"
+    ).value =
+        sw.number;
+
+
+    document.getElementById(
+        "value"
+    ).value =
+        sw.value;
+
+}
+
+
+/* =========================
+   APPLY
+========================= */
+
+function applySettings() {
+
+    const sw =
+        banks[currentBank]
+        .switches[currentSwitch];
+
+
+    sw.shortName =
+        document.getElementById(
+            "shortName"
+        ).value;
+
+
+    sw.longName =
+        document.getElementById(
+            "longName"
+        ).value;
+
+
+    sw.column =
+        Number(
+            document.getElementById(
+                "lcdColumn"
+            ).value
+        );
+
+
+    sw.row =
+        Number(
+            document.getElementById(
+                "lcdRow"
+            ).value
+        );
+
+
+    sw.action =
+        document.getElementById(
+            "action"
+        ).value;
+
+
+    sw.midiType =
+        document.getElementById(
+            "midiType"
+        ).value;
+
+
+    sw.channel =
+        Number(
+            document.getElementById(
+                "channel"
+            ).value
+        );
+
+
+    sw.number =
+        Number(
+            document.getElementById(
+                "number"
+            ).value
+        );
+
+
+    sw.value =
+        Number(
+            document.getElementById(
+                "value"
+            ).value
+        );
+
+
+    render();
+
+    setStatus(
+        "Settings applied"
+    );
+
+}
+
+
+/* =========================
+   LCD
+========================= */
+
+function renderLCD() {
+
+    let row1 =
+        "                        ";
+
+    let row2 =
+        "                        ";
+
+
+    banks[currentBank]
+    .switches
+    .forEach(sw=>{
+
+        let text =
+            sw.shortName.substring(
+                0,8
+            );
+
+
+        let column =
+            Math.max(
+                0,
+                Math.min(
+                    23 - text.length,
+                    sw.column
+                )
+            );
+
+
+        if(sw.row === 0) {
+
+            row1 =
+                row1.substring(
+                    0,column
+                )
+                +
+                text
+                +
+                row1.substring(
+                    column + text.length
+                );
+
+        } else {
+
+            row2 =
+                row2.substring(
+                    0,column
+                )
+                +
+                text
+                +
+                row2.substring(
+                    column + text.length
+                );
+
         }
 
-        // ดึงค่าต่างๆ จากหน้าเว็บ UI
-        const switchNum = parseInt(document.getElementById('switch-select').value);
-        const msgType = parseInt(document.getElementById('msg-type').value);
-        const midiNum = parseInt(document.getElementById('midi-number').value);
-        const midiVal = parseInt(document.getElementById('midi-value').value);
+    });
 
-        /* 
-           สร้างโครงสร้างชุดข้อความจำลองขึ้นมา (Byte Array SysEx)
-           0xF0 = จุดเริ่มต้นข้อความ SysEx
-           0x7D = รหัสผู้ผลิต (Manufacturer ID สำหรับงาน DIY / วิจัย)
-           [ข้อมูลการตั้งค่าที่เราส่งไป]
-           0xF7 = จุดสิ้นสุดข้อความ SysEx
-        */
-        const sysexData = [
-            0xF0,       // Start SysEx
-            0x7D,       // Educational/DIY ID
-            switchNum,  // ปุ่มที่เท่าไหร่ (1, 2, 3)
-            msgType,    // ประเภทข้อความ (176=CC, 192=PC)
-            midiNum,    // เลขข้อความ (0-127)
-            midiVal,    // ค่าความแรง (0-127)
-            0xF7        // End SysEx
-        ];
+
+    document.getElementById(
+        "lcd"
+    ).textContent =
+        row1 + "\n" + row2;
+
+}
+
+
+/* =========================
+   ADD BANK
+========================= */
+
+function addBank() {
+
+    const number =
+        banks.length + 1;
+
+    banks.push(
+        createBank(
+            "BANK " +
+            String(number)
+            .padStart(2,"0")
+        )
+    );
+
+    currentBank =
+        banks.length - 1;
+
+    currentSwitch = 0;
+
+    render();
+
+}
+
+
+/* =========================
+   COPY
+========================= */
+
+function copySwitch() {
+
+    clipboard =
+        JSON.parse(
+            JSON.stringify(
+                banks[currentBank]
+                .switches[currentSwitch]
+            )
+        );
+
+    setStatus(
+        "FS copied"
+    );
+
+}
+
+
+/* =========================
+   PASTE
+========================= */
+
+function pasteSwitch() {
+
+    if(!clipboard)
+        return;
+
+
+    banks[currentBank]
+    .switches[currentSwitch] =
+        JSON.parse(
+            JSON.stringify(
+                clipboard
+            )
+        );
+
+
+    render();
+
+    setStatus(
+        "FS pasted"
+    );
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+function saveSettings() {
+
+    localStorage.setItem(
+        "niceMidiSettings",
+        JSON.stringify(banks)
+    );
+
+    setStatus(
+        "Saved to browser"
+    );
+
+}
+
+
+/* =========================
+   EXPORT
+========================= */
+
+function exportJSON() {
+
+    const data =
+        JSON.stringify(
+            banks,
+            null,
+            2
+        );
+
+
+    const blob =
+        new Blob(
+            [data],
+            {
+                type:
+                "application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const a =
+        document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+        "nice-midi-settings.json";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* =========================
+   IMPORT
+========================= */
+
+function importJSON(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(){
+
+            try {
+
+                banks =
+                    JSON.parse(
+                        reader.result
+                    );
+
+                currentBank = 0;
+
+                currentSwitch = 0;
+
+                render();
+
+                setStatus(
+                    "Import successful"
+                );
+
+            }
+
+            catch {
+
+                setStatus(
+                    "Invalid JSON"
+                );
+
+            }
+
+        };
+
+
+    reader.readAsText(file);
+
+}
+
+
+/* =========================
+   ESP32 CONNECT
+========================= */
+
+async function connectESP32() {
+
+    if(!("serial" in navigator)) {
+
+        setStatus(
+            "Web Serial ไม่รองรับใน browser นี้"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        serialPort =
+            await navigator.serial
+            .requestPort();
+
+
+        await serialPort.open({
+            baudRate: 115200
+        });
+
+
+        setStatus(
+            "ESP32 Connected"
+        );
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        setStatus(
+            "ESP32 connection failed"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   SEND TO ESP32
+========================= */
+
+async function sendToESP32() {
+
+    if(!serialPort) {
+
+        setStatus(
+            "Connect ESP32 ก่อน"
+        );
+
+        return;
+
+    }
+
+
+    const data =
+        JSON.stringify(banks);
+
+
+    const writer =
+        serialPort.writable
+        .getWriter();
+
+
+    const encoder =
+        new TextEncoder();
+
+
+    await writer.write(
+        encoder.encode(
+            data + "\n"
+        )
+    );
+
+
+    writer.releaseLock();
+
+
+    setStatus(
+        "Settings sent to ESP32"
+    );
+
+}
+
+
+/* =========================
+   READ ESP32
+========================= */
+
+async function readFromESP32() {
+
+    if(!serialPort) {
+
+        setStatus(
+            "Connect ESP32 ก่อน"
+        );
+
+        return;
+
+    }
+
+
+    const reader =
+        serialPort.readable
+        .getReader();
+
+
+    try {
+
+        const {
+            value,
+            done
+        } =
+        await reader.read();
+
+
+        if(done)
+            return;
+
+
+        const text =
+            new TextDecoder()
+            .decode(value);
+
+
+        console.log(
+            "ESP32:",
+            text
+        );
+
 
         try {
-            // สั่งให้เว็บแอปพลิเคชันยิงข้อมูลดิบออกไปทางสาย USB ทันที
-            selectedOutput.send(sysexData);
-            log(`ส่งคำสั่งเซฟปุ่ม ${switchNum} สำเร็จ -> ชุดข้อมูลบิต: [${sysexData.map(x => '0x' + x.toString(16).toUpperCase()).join(', ')}]`);
-            alert('ส่งข้อมูลโครงสร้างปุ่มไปยังฟุตสวิตช์เรียบร้อยแล้ว!');
-        } catch (error) {
-            log(`เกิดข้อผิดพลาดในการส่งข้อมูล: ${error}`);
-            alert('ไม่สามารถส่งข้อมูลได้ กรุณาตรวจสอบการเชื่อมต่อ');
+
+            banks =
+                JSON.parse(text);
+
+            currentBank = 0;
+
+            currentSwitch = 0;
+
+            render();
+
+            setStatus(
+                "Settings received"
+            );
+
         }
-    });
+
+        catch {
+
+            setStatus(
+                "Received data is not JSON"
+            );
+
+        }
+
+    }
+
+    finally {
+
+        reader.releaseLock();
+
+    }
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+function setStatus(text) {
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        text;
+
+}
+
+
+/* =========================
+   LOAD SAVED DATA
+========================= */
+
+const saved =
+    localStorage.getItem(
+        "niceMidiSettings"
+    );
+
+
+if(saved) {
+
+    try {
+
+        banks =
+            JSON.parse(saved);
+
+    }
+
+    catch {}
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+render();
+
 </script>
 
 </body>
